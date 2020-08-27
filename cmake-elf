@@ -1,0 +1,74 @@
+###########################################################
+# Versão mínima do cmake
+###########################################################
+cmake_minimum_required(VERSION 3.5)
+
+###########################################################
+# Nome do projeto
+###########################################################
+project (PROJETO)
+
+###########################################################
+# Flags de compilação
+###########################################################
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -Wall" 
+    CACHE STRING "Set C++ Compiler Flags" FORCE
+)
+
+###########################################################
+# Criando uma variavel com os .c
+########################################################### 
+file (GLOB SOURCES
+        "src/*.c"
+)
+
+###########################################################
+# Gerando um executavel
+###########################################################
+add_executable({$CMAKE_PROJECT_NAME}
+    ${SOURCES}
+)
+
+###########################################################
+# Procurando algum path
+###########################################################
+# find_path(NOME_PATH 
+#        NAMES nome.so 
+#        PATHS /path/1 /path/n
+# )
+
+###########################################################
+# Linkando bibliotecas
+###########################################################
+target_link_libraries(${CMAKE_PROJECT_NAME} -lBIBLIOTECA)
+
+
+###########################################################
+# Incluindo diretorios com os .h
+###########################################################
+target_include_directories(${CMAKE_PROJECT_NAME}
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/include
+)
+
+###########################################################
+# Executando scripts
+###########################################################
+# add_custom_command(TARGET ${CMAKE_PROJECT_NAME}
+# POST_BUILD
+# COMMAND /bin/sh ${PROJECT_SOURCE_DIR}/script.sh
+# )
+
+###########################################################
+# Instalando executavel
+###########################################################
+install (TARGETS ${CMAKE_PROJECT_NAME}
+        DESTINATION bin
+)
+
+###########################################################
+# Instalando .h
+###########################################################
+install (DIRECTORY ${PROJECT_SOURCE_DIR}/include/
+    DESTINATION include
+)

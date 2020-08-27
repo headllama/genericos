@@ -1,0 +1,86 @@
+DESCRIPTION = "BBlayer generico"
+LICENSE = "CLOSED"
+
+###########################################################
+# Source, path e branch
+###########################################################
+SRCREV = "${AUTOREV}"
+SRCBRANCH = "feature/c-make"
+SRC_URI = "git://git@155.1.1.41/c-layer/libpharoscolor.git;protocol=ssh;branch=${SRCBRANCH}"
+S = "${WORKDIR}/git/"
+PV = "1.0"
+
+###########################################################
+# Dependencias para compilação e para runtime
+###########################################################
+DEPENDS += "receita"
+RDEPENDS_${PN} = "receita"
+
+###########################################################
+# Packages e arquivos que serão instalados
+###########################################################
+PACKAGES    = "${PN} ${PN}-dev ${PN}-dbg"
+FILES_${PN} = "${libdir}/arquivo*.so ${includedir}/*.h"
+FILES_${PN}-dev = "${libdir}/arquivo*.so ${includedir}/*.h"
+
+###########################################################
+# Script em python
+###########################################################
+# python () {
+#    if d.getVar("VARIAVEL") == 'string' or d.getVar("VARIAVEL") == 'string':
+#        d.setVar('VARIAVEL2', 'FOO')
+#    else:
+#        d.setVar('VARIAVEL2', 'BAR')
+# }
+
+
+###########################################################
+# Flags para nao dar erro com o ldflags
+###########################################################
+INSANE_SKIP_${PN} = "ldflags"
+INSANE_SKIP_${PN}-dev = "ldflags"
+
+###########################################################
+# Compilando para cmake
+###########################################################
+inherit cmake
+EXTRA_OECMAKE = ""
+
+###########################################################
+# Caso compile um executavel em cmake, colocar essa flag
+###########################################################
+# OECMAKE_C_FLAGS = "${HOST_CC_ARCH} ${TOOLCHAIN_OPTIONS}"
+
+###########################################################
+# Caso queira passar alguma variável para o CMake, usar essa flag
+###########################################################
+# EXTRA_OECMAKE = "-DVARIAVEL=${STAGING_KERNEL_DIR}"
+
+###########################################################
+# Compilando de autotools
+###########################################################
+# inherit autotools pkgconfig
+
+
+###########################################################
+# Compilando de makefile
+###########################################################
+# do_compile () {
+#           oe_runmake 
+# }
+
+# do_install () {
+#           install -d ${D}${libdir}
+#           install -m 0755 ${S}/build/arquivo.so  ${D}${libdir}
+# }
+
+###########################################################
+# Adicionando arquivos do diretorio "files"
+###########################################################
+# SRC_URI_append = " file://arquivo"
+
+
+# do_install() {
+#        install -d ${D}/diretorio
+#        install -m 644 ${WORKDIR}/arquivo ${D}/diretorio
+# }
