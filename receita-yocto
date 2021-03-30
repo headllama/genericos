@@ -6,8 +6,8 @@ LICENSE = "CLOSED"
 ###########################################################
 SRCREV = "${AUTOREV}"
 SRCBRANCH = "feature/c-make"
-SRC_URI = "git://git@155.1.1.41/c-layer/libpharoscolor.git;protocol=ssh;branch=${SRCBRANCH}"
-S = "${WORKDIR}/git/"
+SRC_URI = "git://git@192.168.0.1/foobar.git;protocol=ssh;branch=${SRCBRANCH}"
+S = "${WORKDIR}/git/
 PV = "1.0"
 
 ###########################################################
@@ -35,7 +35,7 @@ FILES_${PN}-dev = "${libdir}/arquivo*.so ${includedir}/*.h"
 
 
 ###########################################################
-# Flags para nao dar erro com o ldflags
+# Parâmetro para nao dar erro com o ldflags
 ###########################################################
 INSANE_SKIP_${PN} = "ldflags"
 INSANE_SKIP_${PN}-dev = "ldflags"
